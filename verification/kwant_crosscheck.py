@@ -4,7 +4,7 @@ Builds the SAME tight-binding chain (on-site 2*t0 + U_i, hopping -t0, ideal
 1D leads) in Kwant and compares its S-matrix transmission against this
 repository's NEGF solver on the paper's double-barrier structure.
 
-Measured: max |T_Kwant - T_NEGF| = 4.96e-13 over 900 energies on the N = 280
+Measured: max |T_Kwant - T_NEGF| = 1.17e-12 over 900 energies on the N = 280
 double barrier (Kwant 1.5.0, NumPy 1.26.4, SciPy 1.17.1, OpenBLAS, CPython
 3.12). The residual is roundoff-dominated, so the last digits may shift with a
 different LAPACK build; the script prints the value it measures.

@@ -52,8 +52,8 @@ directory, and all figures are written to `figs/` at the repository root:
 python figures/make_figs.py                 # Figs. 1-2, 4 (solver + gradient)
 python figures/make_fig_verify.py           # Fig. 3 (Breit-Wigner + transfer matrix)
 python figures/make_fig_multiseed.py        # Fig. 6 (multi-seed study)
-python verification/benchmarks_bw_tmm.py    # Table III: 2.2e-16 (BW), 1.2e-10 (TMM)
-python verification/kwant_crosscheck.py     # Table III: 4.96e-13 (Kwant; see below)
+python verification/benchmarks_bw_tmm.py    # Table III: 3.3e-16 (BW), 1.2e-10 (TMM)
+python verification/kwant_crosscheck.py     # Table III: 1.17e-12 (Kwant; see below)
 python verification/gradient_families.py    # Table IV rows + Fig. 4
 python verification/gradient_resonance.py   # Table IV: flank 5.5e-8, summit analysis
 python surrogate/generate_ood_splits.py     # OOD splits (or use data/)
@@ -73,7 +73,7 @@ without re-running the sweep.
 `verification/kwant_crosscheck.py` reproduces the double-barrier cross-check with
 the independent [Kwant](https://kwant-project.org) package, for readers who
 prefer an established external reference implementation. Measured agreement:
-`max |T_Kwant - T_NEGF| = 4.96e-13` over 900 energies (Table III).
+`max |T_Kwant - T_NEGF| = 1.17e-12` over 900 energies (Table III).
 
 Kwant 1.5.0 ships pregenerated Cython sources that do not compile against
 NumPy >= 2.0, so build it against NumPy 1.x:
