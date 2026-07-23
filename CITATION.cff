@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the software and the accompanying paper."
+title: "diff-negf: a benchmark-validated differentiable NEGF solver for inverse design of quantum transport"
+abstract: >-
+  An open, effective-mass one-dimensional coherent Non-Equilibrium Green's
+  Function solver validated against two closed-form benchmarks and cross-checked
+  against two algorithmically independent methods, together with a PyTorch
+  differentiable implementation whose gradients are audited against central
+  finite differences, a potential-to-transmission dataset with designated
+  out-of-family test splits, a Fourier Neural Operator surrogate benchmarked
+  against a parameter-matched multilayer perceptron, and an inverse-design
+  protocol in which every proposed design is re-simulated and graded by the
+  independently validated classical solver.
+type: software
+version: 1.0.0
+date-released: "2026-07-23"
+license: MIT
+repository-code: "https://github.com/QuaNaD-Lab-PESU/diff-negf"
+authors:
+  - given-names: "Shreyus"
+    family-names: "Goutham Kumar"
+    email: "shreyasgouatham@pes.edu"
+    affiliation: "Quantum and Nano Devices (QuaNaD) Lab, Department of Electronics and Communication Engineering, PES University - Electronic City Campus, Bengaluru, India"
+keywords:
+  - NEGF
+  - quantum transport
+  - automatic differentiation
+  - inverse design
+  - Fourier neural operator
+  - differentiable physics
+  - nanoelectronics
