@@ -1,19 +1,24 @@
-"""Optional external cross-check with the Kwant package (paper Sec. III-A).
+"""Optional external cross-check with the Kwant package (paper Sec. IV-A).
 
 Builds the SAME tight-binding chain (on-site 2*t0 + U_i, hopping -t0, ideal
 1D leads) in Kwant and compares its S-matrix transmission against this
 repository's NEGF solver on the paper's double-barrier structure.
 
-NOTE: Kwant currently ships wheels only for some Python versions. This script
-is intended for Google Colab:
+Measured: max |T_Kwant - T_NEGF| = 4.96e-13 over 900 energies on the N = 280
+double barrier (Kwant 1.5.0, NumPy 1.26.4, SciPy 1.17.1, OpenBLAS, CPython
+3.12). The residual is roundoff-dominated, so the last digits may shift with a
+different LAPACK build; the script prints the value it measures.
 
-    !pip install kwant
-    !python kwant_crosscheck.py
+Install note: Kwant 1.5.0 ships pregenerated Cython sources that do not compile
+against NumPy >= 2.0 (`PyArray_Descr has no member named subarray`). Build it
+in an environment pinned to NumPy 1.x:
 
-It was not executable in the environment used to prepare the paper (no wheel
-for the sandbox's Python); expected agreement is at the 1e-10 level or better,
-matching the transfer-matrix cross-check reported in the paper. Run once and
-record the printed max deviation.
+    python -m venv kwenv
+    kwenv/bin/pip install "numpy<2" scipy cython tinyarray
+    kwenv/bin/pip install --no-build-isolation kwant
+    kwenv/bin/python verification/kwant_crosscheck.py
+
+Google Colab also works (`!pip install kwant`).
 """
 import sys, os
 _HERE = os.path.dirname(os.path.abspath(__file__))

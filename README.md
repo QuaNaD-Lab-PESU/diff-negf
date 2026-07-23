@@ -53,7 +53,7 @@ python figures/make_figs.py                 # Figs. 1-2, 4 (solver + gradient)
 python figures/make_fig_verify.py           # Fig. 3 (Breit-Wigner + transfer matrix)
 python figures/make_fig_multiseed.py        # Fig. 6 (multi-seed study)
 python verification/benchmarks_bw_tmm.py    # Table III: 2.2e-16 (BW), 1.2e-10 (TMM)
-python verification/kwant_crosscheck.py     # Table III: 1.5e-12 (Kwant; see below)
+python verification/kwant_crosscheck.py     # Table III: 4.96e-13 (Kwant; see below)
 python verification/gradient_families.py    # Table IV rows + Fig. 4
 python verification/gradient_resonance.py   # Table IV: flank 5.5e-8, summit analysis
 python surrogate/generate_ood_splits.py     # OOD splits (or use data/)
@@ -71,10 +71,21 @@ without re-running the sweep.
 ### Optional: Kwant cross-check
 
 `verification/kwant_crosscheck.py` reproduces the double-barrier cross-check with
-the independent [Kwant](https://kwant-project.org) package (agreement to
-1.5e-12; Table III). Kwant has no wheel for very recent Python versions; the
-script is written for Google Colab (`pip install kwant` there) and is provided
-for readers who prefer an established external reference implementation.
+the independent [Kwant](https://kwant-project.org) package, for readers who
+prefer an established external reference implementation. Measured agreement:
+`max |T_Kwant - T_NEGF| = 4.96e-13` over 900 energies (Table III).
+
+Kwant 1.5.0 ships pregenerated Cython sources that do not compile against
+NumPy >= 2.0, so build it against NumPy 1.x:
+
+```
+python -m venv kwenv
+kwenv/bin/pip install "numpy<2" scipy cython tinyarray
+kwenv/bin/pip install --no-build-isolation kwant
+kwenv/bin/python verification/kwant_crosscheck.py
+```
+
+Google Colab also works (`!pip install kwant`).
 
 ## Cite
 
