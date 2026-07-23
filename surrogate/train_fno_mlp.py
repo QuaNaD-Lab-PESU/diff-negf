@@ -1,4 +1,4 @@
-"""GAP 3 stage 2: train FNO + parameter-matched MLP identically on the
+"""Surrogate study, step 2: train FNO + parameter-matched MLP identically on the
 in-family training split; evaluate aggregate and per-spectrum worst-case
 relative L2 on in-family test and the three OOD splits."""
 import sys, os
@@ -8,7 +8,7 @@ _DATA = os.path.join(_HERE, '..', 'data')
 import numpy as np, torch, torch.nn as nn
 torch.set_default_dtype(torch.float64); torch.manual_seed(0); np.random.seed(0)
 d = np.load(os.path.join(_DATA, "fno_data.npz")); U, T = d["U"], d["T"]; N = U.shape[1]
-o = np.load(os.path.join(_DATA, "gap3_ood.npz"))
+o = np.load(os.path.join(_DATA, "ood_splits.npz"))
 Xtr,Ttr = torch.tensor(U[:800]), torch.tensor(T[:800])
 splits = {"in-family": (torch.tensor(U[800:]), torch.tensor(T[800:])),
           "OOD-tall": (torch.tensor(o["U_tall"]), torch.tensor(o["T_tall"])),
@@ -81,6 +81,6 @@ print(f"\n{'split':12s} | FNO agg / worst / med  | MLP agg / worst / med")
 for k in splits:
     a1,w1,d1 = mf[k]; a2,w2,d2 = mm[k]
     print(f"{k:12s} | {a1*100:5.1f}% {w1*100:6.1f}% {d1*100:5.1f}% | {a2*100:5.1f}% {w2*100:6.1f}% {d2*100:5.1f}%")
-np.savez(os.path.join(_DATA, "gap3_results.npz"),
+np.savez(os.path.join(_DATA, "surrogate_results.npz"),
          fno={k:v for k,v in mf.items()}, mlp={k:v for k,v in mm.items()},
          pf=pf, pm=nparams(mlp), H=H, allow_pickle=True)

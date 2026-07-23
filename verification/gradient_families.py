@@ -1,4 +1,4 @@
-"""GAP 2: verify autodiff gradients dT/dU(x) against central finite
+"""Gradient verification: autodiff gradients dT/dU(x) against central finite
 differences across three device families, including near-resonance energies
 where gradients are stiffest. Reports relative L2 errors."""
 import sys, os
@@ -97,6 +97,6 @@ for name,N,eset,r in results:
     print(f"{name:38s} N={N:4d}  E:{eset:15s}  relL2={r:.2e}")
     if r >= 1e-6: allok = False
 print("ALL < 1e-6:", allok)
-np.savez(os.path.join(_DATA, "gap2_results.npz"),
+np.savez(os.path.join(_DATA, "gradient_results.npz"),
          rows=np.array([(n,N,e,f"{r:.1e}") for n,N,e,r in results],dtype=object),
          E_res=E_res, gamma=gamma, r_vals=np.array([r for *_,r in results]))

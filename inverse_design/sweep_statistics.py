@@ -1,11 +1,11 @@
-"""GAP 4 analysis: success statistics per target (classical-solver-judged),
+"""Multi-seed analysis: success statistics per target (classical-solver-judged),
 solution character, failure-mode diagnosis, and the paper figure."""
 import sys, os
 _HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(_HERE, '..', 'src'))
 _DATA = os.path.join(_HERE, '..', 'data')
 import numpy as np
-z = np.load(os.path.join(_DATA, "gap4_state.npz"), allow_pickle=True); done = dict(z["done"].item())
+z = np.load(os.path.join(_DATA, "multiseed_sweep_state.npz"), allow_pickle=True); done = dict(z["done"].item())
 E = np.linspace(0.02, 0.45, 90)
 def t_res(E): return 0.97/(1.0+((E-0.16)/0.014)**2)+0.01
 def t_pass(E): return 0.95/(1.0+((E-0.21)/0.030)**8)+0.02
@@ -46,4 +46,4 @@ notch=np.abs(E-0.20)<=0.008
 print(f"stopband best seed {best_sb}: T@notch={Tsb[notch].min():.3f}, "
       f"T high-side mean={Tsb[E>=0.30].mean():.3f}, T low-side mean={Tsb[E<=0.12].mean():.3f}")
 
-np.savez(os.path.join(_DATA, "gap4_stats.npz"), stats=np.array(stats,dtype=object), best_sb=best_sb, dU=dU)
+np.savez(os.path.join(_DATA, "multiseed_stats.npz"), stats=np.array(stats,dtype=object), best_sb=best_sb, dU=dU)

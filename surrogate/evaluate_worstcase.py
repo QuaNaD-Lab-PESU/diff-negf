@@ -1,13 +1,15 @@
-"""GAP 3 stage 3: absolute worst-case errors + regenerate paper FNO figure
+"""Surrogate study, step 3: absolute worst-case errors + regenerate paper FNO figure
 from the retrained weights (so figure and numbers match)."""
 import sys, os
 _HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(_HERE, '..', 'src'))
 _DATA = os.path.join(_HERE, '..', 'data')
+_FIG  = os.path.join(_HERE, '..', 'figs')
+os.makedirs(_FIG, exist_ok=True)
 import numpy as np, torch, torch.nn as nn
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 torch.set_default_dtype(torch.float64)
-exec(open("train_fno_mlp.py").read().split("def train")[0])  # rebuild classes/splits
+exec(open(os.path.join(_HERE, "train_fno_mlp.py")).read().split("def train")[0])  # rebuild classes/splits
 fno = FNO1d(); fno.load_state_dict(torch.load(os.path.join(_DATA, "fno_weights.pt"))); fno.eval()
 mlp = nn.Sequential(nn.Linear(64,493), nn.ReLU(), nn.Linear(493,493),
                     nn.ReLU(), nn.Linear(493,64))
@@ -46,5 +48,5 @@ ax[1].plot([0,1],[0,1],color=NAVY,lw=1.2)
 ax[1].set_xlabel("true T"); ax[1].set_ylabel("predicted T")
 ax[1].set_title("(b)  parity, held-out set (rel. L2 $\\approx$ 3.7%)",fontsize=11,loc="left")
 ax[1].set_xlim(0,1); ax[1].set_ylim(0,1)
-plt.tight_layout(); plt.savefig("figs/fig_fno.png",bbox_inches="tight"); plt.close()
+plt.tight_layout(); plt.savefig(os.path.join(_FIG, "fig_fno.png"),bbox_inches="tight"); plt.close()
 print("figs/fig_fno.png regenerated from retrained weights")

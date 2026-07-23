@@ -1,4 +1,4 @@
-"""GAP 1: (a) Breit-Wigner closed-form benchmark of the NEGF recipe on a
+"""Solver verification: (a) Breit-Wigner closed-form benchmark of the NEGF recipe on a
 single resonant level; (b) algorithmically independent transfer-matrix
 cross-check of the lattice NEGF solver on double-barrier and random-potential
 devices."""
@@ -87,10 +87,10 @@ T_tmm_r  = tmm_transmission(E2, U_rnd, a, m_r)
 dev_r = np.abs(T_negf_r - T_tmm_r).max()
 print(f"(b) random 3-bump: max |T_NEGF - T_TMM| = {dev_r:.3e}  (N={len(U_rnd)})")
 
-np.savez(os.path.join(_DATA, "gap1_results.npz"),
+np.savez(os.path.join(_DATA, "verification_results.npz"),
          E1=E1, bw_err=bw_err,
          E2=E2, U_db=U_db, T_negf_db=T_negf_db, T_tmm_db=T_tmm_db,
          dev_db=dev_db, dev_r=dev_r,
          T_bw_sym=breit_wigner(E1,0,1,1), T_negf_sym=single_level_T_negf(E1,0,1,1),
          T_bw_asym=breit_wigner(E1,0,1,0.3), T_negf_asym=single_level_T_negf(E1,0,1,0.3))
-print("saved gap1_results.npz")
+print("saved verification_results.npz")

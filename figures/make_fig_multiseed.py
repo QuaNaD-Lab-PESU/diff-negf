@@ -1,7 +1,12 @@
+"""Multi-seed figure: pass-band successes vs. the infeasible stop-band target,
+and the superlattice discovered for the pass-band specification.
+Reads the checkpointed sweep state written by inverse_design/multiseed_sweep.py."""
 import sys, os
 _HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(_HERE, '..', 'src'))
 _DATA = os.path.join(_HERE, '..', 'data')
+_FIG  = os.path.join(_HERE, '..', 'figs')
+os.makedirs(_FIG, exist_ok=True)
 import numpy as np, matplotlib
 matplotlib.use("Agg"); import matplotlib.pyplot as plt
 plt.rcParams.update({"font.family":"serif","font.size":10,
@@ -11,7 +16,7 @@ NAVY="#1F3A5F"; RUST="#B5482A"; STEEL="#5B7DA6"; GREY="#9aa7b4"
 E=np.linspace(0.02,0.45,90)
 def t_pass(E): return 0.95/(1.0+((E-0.21)/0.030)**8)+0.02
 def t_stop(E): return 0.85-0.83*np.exp(-((E-0.20)**2)/(2*0.015**2))
-z=np.load(os.path.join(_DATA, "gap4_state.npz"),allow_pickle=True); done=dict(z["done"].item())
+z=np.load(os.path.join(_DATA, "multiseed_sweep_state.npz"),allow_pickle=True); done=dict(z["done"].item())
 # best seeds
 bp=min(range(5),key=lambda s: done[f"passband_{s}"]["mse"])
 bs=min(range(5),key=lambda s: done[f"stopband_{s}"]["mse"])
@@ -29,7 +34,7 @@ ax[0].legend(frameon=False,fontsize=6.8,loc="center right"); ax[0].set_ylim(-0.0
 ax[1].plot(x,Up,color=NAVY,lw=1.8); ax[1].fill_between(x,Up,color=NAVY,alpha=0.12)
 ax[1].set_xlabel("position $x$ (nm)"); ax[1].set_ylabel("$U(x)$ (eV)")
 ax[1].set_title("(b) pass-band device: a discovered superlattice",fontsize=9.5,loc="left")
-plt.tight_layout(); plt.savefig("figs/fig_sweep.png",bbox_inches="tight"); plt.close()
+plt.tight_layout(); plt.savefig(os.path.join(_FIG, "fig_sweep.png"),bbox_inches="tight"); plt.close()
 # original flat-init resonance MSE for the table
 r=np.load(os.path.join(_DATA, "inverse_result.npz"))
 mse0=float(np.mean((r["T_final"]-r["T_target"])**2))

@@ -1,4 +1,4 @@
-"""GAP 3 stage 1: generate three designated OOD splits.
+"""Surrogate study, step 1: generate three designated OOD splits.
 In-family generator (fno_data.npz): 1-3 bumps, w 0.4-1.6 nm, h 0.08-0.40 eV.
 OOD-tall:   h 0.40-0.50 eV (beyond training heights)
 OOD-narrow: w 0.20-0.40 nm (sharper than training)
@@ -31,8 +31,8 @@ M = 150
 U_tall, T_tall     = make(1,3, 0.4,1.6, 0.40,0.50, M)
 U_narrow, T_narrow = make(1,3, 0.20,0.40, 0.08,0.40, M)
 U_4b, T_4b         = make(4,4, 0.4,1.6, 0.08,0.40, M)
-np.savez(os.path.join(_DATA, "gap3_ood.npz"), U_tall=U_tall,T_tall=T_tall,
+np.savez(os.path.join(_DATA, "ood_splits.npz"), U_tall=U_tall,T_tall=T_tall,
          U_narrow=U_narrow,T_narrow=T_narrow,U_4b=U_4b,T_4b=T_4b)
 for nm,(u,t) in [("tall",(U_tall,T_tall)),("narrow",(U_narrow,T_narrow)),("4bump",(U_4b,T_4b))]:
     print(f"{nm}: U max={u.max():.3f} eV, T range [{t.min():.2e},{t.max():.3f}]")
-print("saved gap3_ood.npz")
+print("saved ood_splits.npz")

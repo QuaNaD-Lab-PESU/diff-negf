@@ -1,4 +1,4 @@
-"""GAP 4: multi-seed inverse-design study. Three targets of increasing
+"""Multi-seed inverse-design study. Three targets of increasing
 difficulty x 5 random initialisations, all confirmed by the classical solver.
 Checkpointed: safe to invoke repeatedly until all runs complete."""
 import sys, os
@@ -24,7 +24,7 @@ def t_stop(E):  # (iii) notch (stop-band) at 0.20 eV in a transmitting backgroun
 TARGETS = {"resonance": t_res, "passband": t_pass, "stopband": t_stop}
 SEEDS = [0,1,2,3,4]
 
-STATE = os.path.join(_DATA, "gap4_state.npz")
+STATE = os.path.join(_DATA, "multiseed_sweep_state.npz")
 done = {}
 if os.path.exists(STATE):
     z = np.load(STATE, allow_pickle=True)
