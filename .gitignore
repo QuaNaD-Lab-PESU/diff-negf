@@ -12,5 +12,3 @@ data/gradient_results.npz
 data/surrogate_results.npz
 kwenv/
 venv/
-kwenv/
-venv/
