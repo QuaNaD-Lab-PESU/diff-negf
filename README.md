@@ -1,14 +1,12 @@
 # diff-negf
 
-**A benchmark-validated differentiable effective-mass NEGF solver for
-gradient-based inverse design of quantum transport, with an open
-potential-to-transmission dataset.**
+**Inverse Design of Quantum Transport with a
+Verified Differentiable NEGF Solver.**
 
 QuaNaD Laboratory, Department of ECE, PES University (EC Campus), Bengaluru.
 
-This repository accompanies the paper *"A Benchmark-Validated Differentiable
-Effective-Mass NEGF Solver for Gradient-Based Inverse Design of Quantum
-Transport, with an Open Potential-to-Transmission Dataset"* and contains the
+This repository accompanies the paper *"Inverse Design of Quantum Transport with a
+Verified Differentiable NEGF Solver"* and contains the
 complete stack: solver, differentiable implementation, verification scripts,
 the dataset with designated out-of-family (OOD) splits, and scripts that
 regenerate every figure and table in the paper.
